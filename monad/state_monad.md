@@ -112,4 +112,30 @@ Schematically we could see the bind operator as follows:
               v        s2
               b
 ```
-So here the first runState takes the initial state s0 will return an a and s1. With the a, we construct a new runState, that can then process the state s1 further, and will return a b and the new state s2.
+So here the first runState takes the initial state s1 will return an a and s1. With the a, we construct a new runState, that can then process the state s1 further, and will return a b and the new state s2.
+
+
+## Working with Monads in OCaml
+
+### Higher-kinded type constructor
+
+```haskell
+data MaybeT m a = MaybeT (m (Maybe a))
+ghci> : k MaybeT
+MaybeT :: (* -> *) -> * -> *
+```
+
+MaybeT is a type constructor that takes a type constructor as a type parameter.
+
+### What about OCaml ?
+
+```
+type ('w,'a) optiontwriter = 'w * 'a option
+(*ok*)
+
+type ('m,'a) optiont = ('a option) 'm
+(*Error: Syntax error*)
+```
+
+
+
